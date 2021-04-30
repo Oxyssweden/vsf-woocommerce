@@ -1,14 +1,12 @@
 ![Vue Storefront](https://camo.githubusercontent.com/48c886ac0703e3a46bc0ec963e20f126337229fc/68747470733a2f2f643968687267346d6e767a6f772e636c6f756466726f6e742e6e65742f7777772e76756573746f726566726f6e742e696f2f32383062313964302d6c6f676f2d76735f3062793032633062793032633030303030302e6a7067)
 
-# Boilerplate for Vue Storefront Next
+# WooCommerce integration for Vue Storefront Next
 
-<a href="https://discord.vuestorefront.io">![Our Discord server](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)</a>
+> **Disclaimer:** This project is still in beta phase and we are looking for contributors! Please write to us in [this thread](https://github.com/Oxyssweden/vsf-woocommerce/discussions/2) or on the [Vue Storefront Discord](https://discord.vuestorefront.io/) 
 
-> **Disclaimer:** This project is still in beta phase.
+This repository is a work in progress integration for [Vue Storefront Next](https://github.com/vuestorefront/vue-storefront/).
 
-This repository is a starting point for creating new integrations for [Vue Storefront Next](https://github.com/vuestorefront/vue-storefront/).
-
-* [Documentation](https://docs.vuestorefront.io/v2/integrate/integration-guide.html) (WIP)
+* [General integration documentation](https://docs.vuestorefront.io/v2/integrate/integration-guide.html) (WIP)
 
 
 This repository is a monorepo containing three projects:
@@ -19,7 +17,7 @@ This repository is a monorepo containing three projects:
 
 ## How to start?
 
-1. Change all `@vue-storefront/boilerplate` strings to your integration name (eg `@vue-storefront/super-ecomm`)
+1. Install the free open source Wordpress Plugin [WPGraphQL WooCommerce (WooGraphQL)](https://github.com/wp-graphql/wp-graphql-woocommerce) into your WP store
 
 2. Install all required dependencies:
 
@@ -33,7 +31,7 @@ yarn install
 yarn build
 ```
 
-4. If everything built properly, you can start creating your new integration with:
+4. If everything built properly, you can start developing with:
 
 ```sh
 yarn dev
