@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/boilerplate",
+  "name": "@Oxyssweden/vsf-woocommerce",
   "version": "2.3.0",
   "private": true,
   "sideEffects": false,
@@ -13,7 +13,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@vue-storefront/boilerplate-api": "^2.3.0",
+    "@Oxyssweden/vsf-woocommerce-api": "^2.3.0",
     "@vue-storefront/core": "^2.3.0"
   },
   "peerDependencies": {

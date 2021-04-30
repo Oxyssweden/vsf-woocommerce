@@ -49,11 +49,11 @@ export default {
       // @core-development-only-end
       useRawSource: {
         dev: [
-          '@vue-storefront/boilerplate',
+          '@Oxyssweden/vsf-woocommerce',
           '@vue-storefront/core'
         ],
         prod: [
-          '@vue-storefront/boilerplate',
+          '@Oxyssweden/vsf-woocommerce',
           '@vue-storefront/core'
         ]
       }
@@ -62,8 +62,8 @@ export default {
     ['@vue-storefront/nuxt-theme', {
       generate: {
         replace: {
-          apiClient: '@vue-storefront/boilerplate-api',
-          composables: '@vue-storefront/boilerplate'
+          apiClient: '@Oxyssweden/vsf-woocommerce-api',
+          composables: '@Oxyssweden/vsf-woocommerce'
         }
       }
     }],
@@ -71,7 +71,7 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/boilerplate/nuxt', {}]
+    ['@Oxyssweden/vsf-woocommerce/nuxt', {}]
   ],
   modules: [
     'nuxt-i18n',

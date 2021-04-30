@@ -1,7 +1,7 @@
 module.exports = {
   integrations: {
     boilerplate: {
-      location: '@vue-storefront/boilerplate-api/server',
+      location: '@Oxyssweden/vsf-woocommerce-api/server',
       configuration: {}
     }
   }

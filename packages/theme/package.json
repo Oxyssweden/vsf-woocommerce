@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/boilerplate-theme",
+  "name": "@Oxyssweden/vsf-woocommerce-theme",
   "version": "2.3.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@storefront-ui/vue": "^0.10.3",
-    "@vue-storefront/boilerplate": "^2.3.0",
+    "@Oxyssweden/vsf-woocommerce": "^2.3.0",
     "@vue-storefront/middleware": "^2.3.0",
     "@vue-storefront/nuxt": "^2.3.0",
     "@vue-storefront/nuxt-theme": "^2.3.0",
