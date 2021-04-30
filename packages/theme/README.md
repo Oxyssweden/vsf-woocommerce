@@ -1,6 +1,6 @@
 # theme
 
-> Boilerplate theme
+> woocommerce theme
 
 ## Build Setup
 

@@ -1,6 +1,6 @@
 module.exports = {
   integrations: {
-    boilerplate: {
+    woocommerce: {
       location: '@Oxyssweden/vsf-woocommerce-api/server',
       configuration: {}
     }
