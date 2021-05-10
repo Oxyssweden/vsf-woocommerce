@@ -1,8 +1,8 @@
 import { CartGetters, AgnosticPrice, AgnosticTotals, AgnosticCoupon, AgnosticDiscount } from '@vue-storefront/core';
-import { Cart, LineItem } from '@Oxyssweden/vsf-woocommerce-api/src/types';
+import { Cart, LineItem } from '@Oxyssweden/vsf-woocommerce-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getCartItems = (cart: Cart): LineItem[] => [
+export const getCartItems = (cart: Cart): any[] => [
   {
     _id: 1,
     _description: 'Some description',

@@ -4,7 +4,8 @@ import {
   AgnosticPrice,
   ProductGetters
 } from '@vue-storefront/core';
-import { ProductVariant } from '@Oxyssweden/vsf-woocommerce-api/src/types';
+import type { Product } from '@Oxyssweden/vsf-woocommerce-api';
+import {getVariantByAttributes} from './_utils';
 
 type ProductVariantFilters = any
 
@@ -12,97 +13,78 @@ type ProductVariantFilters = any
 // Product
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductName = (product: ProductVariant): string => product?.name || 'Product\'s name';
+export const getProductName = (product: Product): string => product?.name || 'Product\'s name';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductSlug = (product: ProductVariant): string => product.sku;
+export const getProductSlug = (product: Product): string => product.sku || 'product/' + product.id;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductPrice = (product: ProductVariant): AgnosticPrice => {
+export const getProductPrice = (product): AgnosticPrice => {
   return {
-    regular: product?.price?.original || 0,
-    special: product?.price?.current || 0
+    regular: parseFloat(product.price) || 0,
+    special: parseFloat(product.salePrice) || 0
   };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductGallery = (product: ProductVariant): AgnosticMediaGalleryItem[] => [
-  {
-    small: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-    normal: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-    big: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg'
-  },
-  {
-    small: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-    normal: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-    big: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg'
-  }
-];
+export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] => {
+  const original = product.image?.sourceUrl || 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductCoverImage = (product: ProductVariant): string => 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductFiltered = (products: ProductVariant[], filters: ProductVariantFilters | any = {}): ProductVariant[] => {
   return [
     {
-      _id: 1,
-      _description: 'Some description',
-      _categoriesRef: [
-        '1',
-        '2'
-      ],
-      name: 'Black jacket',
-      sku: 'black-jacket',
-      images: [
-        'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg'
-      ],
-      price: {
-        original: 12.34,
-        current: 10.00
-      }
+      small: original,
+      normal: original,
+      big: original
     },
     {
-      _id: 2,
-      _description: 'Some different description',
-      _categoriesRef: [
-        '1',
-        '2',
-        '3'
-      ],
-      name: 'White shirt',
-      sku: 'white-shirt',
-      images: [
-        'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg'
-      ],
-      price: {
-        original: 15.11,
-        current: 11.00
-      }
+      small: original,
+      normal: original,
+      big: original
     }
   ];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductAttributes = (products: ProductVariant[] | ProductVariant, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
+export const getProductCoverImage = (product: Product): string => product.image?.sourceUrl || 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getProductFiltered = (products: (Product)[], filters: ProductVariantFilters | any = {}): (Product)[] => {
+  if (!products) {
+    return [];
+  }
+
+  if (filters.attributes && Object.keys(filters.attributes).length > 0) {
+    return [getVariantByAttributes(products, filters.attributes)];
+  }
+
+  if (filters.master) {
+    // @todo implement master filtering?
+    // return products.filter((product) => (product as any)._master);
+  }
+
+  return products;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getProductAttributes = (products: (Product)[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
   return {};
 };
 
-export const getProductDescription = (product: ProductVariant): any => (product as any)?._description || '';
+export const getProductDescription = (product: Product): any => (product as any)?.description || '';
 
-export const getProductCategoryIds = (product: ProductVariant): string[] => (product as any)?._categoriesRef || '';
+export const getProductCategoryIds = (product: Product): string[] => (product as any)?.productCategories || '';
 
-export const getProductId = (product: ProductVariant): string => (product as any)?._id || '';
+export const getProductId = (product: Product): string => (product as any)?.id || '';
 
 export const getFormattedPrice = (price: number) => String(price);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductTotalReviews = (product: ProductVariant): number => 0;
+export const getProductTotalReviews = (product: Product): number => 0;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductAverageRating = (product: ProductVariant): number => 0;
+export const getProductAverageRating = (product: Product): number => 0;
 
-const productGetters: ProductGetters<ProductVariant, ProductVariantFilters> = {
+const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getName: getProductName,
   getSlug: getProductSlug,
   getPrice: getProductPrice,

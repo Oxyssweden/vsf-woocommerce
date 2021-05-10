@@ -1,78 +1,32 @@
+import gql from 'graphql-tag';
+import GET_CATEGORIES_QUERY from './defaultQuery';
+import { ProductCategory } from '../../types/GraphQL';
+import ApolloClient from 'apollo-client';
 import { CustomQuery } from '@vue-storefront/core';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function getCategory(context, params, customQuery?: CustomQuery) {
-  return Promise.resolve([
-    {
-      id: 1,
-      name: 'Women',
-      slug: 'women',
-      items: [
-        {
-          id: 4,
-          name: 'Women jackets',
-          slug: 'women-jackets',
-          items: [
-            {
-              id: 9,
-              name: 'Winter jackets',
-              slug: 'winter-jackets',
-              items: []
-            },
-            {
-              id: 10,
-              name: 'Autumn jackets',
-              slug: 'autmun-jackets',
-              items: []
-            }
-          ]
-        },
-        {
-          id: 5,
-          name: 'Skirts',
-          slug: 'skirts',
-          items: []
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: 'Men',
-      slug: 'men',
-      items: [
-        {
-          id: 6,
-          name: 'Men T-shirts',
-          slug: 'men-tshirts',
-          items: []
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: 'Kids',
-      slug: 'kids',
-      items: [
-        {
-          id: 7,
-          name: 'Toys',
-          slug: 'toys',
-          items: [
-            {
-              id: 8,
-              name: 'Toy Cars',
-              slug: 'toy-cars',
-              items: []
-            },
-            {
-              id: 8,
-              name: 'Dolls',
-              slug: 'dolls',
-              items: []
-            }
-          ]
-        }
-      ]
-    }
-  ]);
+export interface CategoryData {
+  categories: ProductCategory;
 }
+
+const getCategory = async (context, params, customQuery?: CustomQuery) => {
+  const { acceptLanguage } = context.config;
+  const defaultVariables = params ? {
+    limit: params.limit,
+    offset: params.offset,
+    acceptLanguage
+  } : { acceptLanguage };
+
+  const { categories } = context.extendQuery(customQuery,
+    { categories: { query: GET_CATEGORIES_QUERY, variables: defaultVariables } }
+  );
+
+  const request = await (context.client as ApolloClient<any>).query<CategoryData>({
+    query: gql`${categories.query}`,
+    variables: categories.variables,
+    fetchPolicy: 'no-cache'
+  });
+
+  return request;
+};
+
+export default getCategory;

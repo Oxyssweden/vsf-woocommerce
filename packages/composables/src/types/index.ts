@@ -1,3 +1,4 @@
+import type { Product } from '@Oxyssweden/vsf-woocommerce-api';
 export { UseCategory, UseProduct } from '@vue-storefront/core';
 
 export type Address = Record<string, unknown>;
@@ -22,8 +23,6 @@ export type Order = Record<string, unknown>;
 
 export type OrderItem = Record<string, unknown>;
 
-export type Product = Record<string, unknown>;
-
 export type Review = Record<string, unknown>;
 
 export type Shipping = Record<string, unknown>;
@@ -45,3 +44,31 @@ export type OrdersResponse = {
   data: any[];
   total: number;
 };
+
+export enum AttributeType {
+  STRING = 'StringAttribute',
+  DATE = 'DateAttribute',
+  DATETIME = 'DateTimeAttribute',
+  TIME = 'TimeAttribute',
+  NUMBER = 'NumberAttribute',
+  ENUM = 'EnumAttribute',
+  LOCALIZED_ENUM = 'LocalizedEnumAttribute',
+  LOCALIZED_STRING = 'LocalizedStringAttribute',
+  MONEY = 'MoneyAttribute',
+  BOOLEAN = 'BooleanAttribute'
+}
+
+export interface Filter {
+  type: AttributeType;
+  name: string;
+  value: any;
+}
+
+export interface FacetResultsData {
+  products: Product[];
+  categories: Category[];
+  facets: Record<string, Filter>;
+  total: number;
+  perPageOptions: number[];
+  itemsPerPage: number;
+}
