@@ -19,19 +19,21 @@ This repository is a monorepo containing three projects:
 
 1. Install the free open source Wordpress Plugin [WPGraphQL WooCommerce (WooGraphQL)](https://github.com/wp-graphql/wp-graphql-woocommerce) into your WP store
 
-2. Install all required dependencies:
+2. Copy .env.example to .env inside packages/theme and enter your wordpress site URL with GraphQL endpoint.
+
+3. Install all required dependencies:
 
 ```sh
 yarn install
 ```
 
-3. (optional) Then you can verify if everything works properly by building all three projects:
+5. (optional) Then you can verify if everything works properly by building all three projects:
 
 ```sh
 yarn build
 ```
 
-4. If everything built properly, you can start developing with:
+6. If everything built properly, you can start developing with:
 
 ```sh
 yarn dev
